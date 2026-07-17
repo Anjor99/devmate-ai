@@ -10,12 +10,10 @@ class GroqProvider(LLMProvider):
     def __init__(self):
         self.client = Groq(api_key=settings.groq_api_key)
 
-    def chat(self, request: ChatRequest):
-        
+    def chat(self, request: ChatRequest) -> ChatResponse:
         """
         Send a chat request to Groq and return a provider-independent ChatResponse.
         """
-        
         response = self.client.chat.completions.create(
             model=request.model,
             messages=self._to_groq_messages(request.messages),
@@ -30,7 +28,7 @@ class GroqProvider(LLMProvider):
             )
         )
 
-    def _to_groq_messages(self, messages : list[Message]):
+    def _to_groq_messages(self, messages : list[Message]) -> list[dict[str,SyntaxWarning]]:
         """
         Convert DevMate Message objects into the dictionary format
         required by the Groq API.
@@ -43,7 +41,7 @@ class GroqProvider(LLMProvider):
             })
         return msg_list
 
-    def _from_groq_response(self, asst_response):
+    def _from_groq_response(self, asst_response) -> str:
         """
         Extract the assistant's reply from the Groq response object.
         """
