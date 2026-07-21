@@ -1,8 +1,17 @@
-from app.models.message import Message, Role
+from app.llm.factory import ProviderFactory
+from app.models.chat_request import ChatRequest
+from app.models.message import Message,Role
+provider = ProviderFactory.create()
 
-msg = Message(
-    role=Role.USER,
-    content="Hello DevMate!"
+request = ChatRequest(
+    messages=[
+        Message(
+            role=Role.USER,
+            content="Hello!"
+        )
+    ]
 )
 
-print(msg)
+response = provider.chat(request)
+
+print(response)

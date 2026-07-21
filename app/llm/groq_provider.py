@@ -28,7 +28,7 @@ class GroqProvider(LLMProvider):
             )
         )
 
-    def _to_groq_messages(self, messages : list[Message]) -> list[dict[str,SyntaxWarning]]:
+    def _to_groq_messages(self, messages : list[Message]) -> list[dict[str,str]]:
         """
         Convert DevMate Message objects into the dictionary format
         required by the Groq API.
